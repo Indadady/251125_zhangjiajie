@@ -3,378 +3,423 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>장가계 VIP팀 특별 설명회 자료</title>
+    <title>2026 청주출발 장가계 VIP 투어 (사천항공)</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Noto Sans KR', 'Inter', sans-serif;
-            background-color: #f7f7f7;
+            background-color: #f8fafc;
+            color: #1f2937;
         }
         .header-bg {
-            /* 1. 첫화면 배경사진 반영 */
-            background-image: url('https://media.odynovotours.com/article/78000/national-forest-park_76217.jpg');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), url('https://media.odynovotours.com/article/78000/national-forest-park_76217.jpg');
             background-size: cover;
             background-position: center;
-            position: relative;
+            background-attachment: fixed; /* Parallax effect */
         }
         .section-title {
             color: #08583d;
-            border-left: 5px solid #ffba00;
-            padding-left: 1rem;
+            border-left: 6px solid #ffba00;
+            padding-left: 1.2rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+        }
+        .highlight-text {
+            color: #08583d;
             font-weight: 700;
         }
-        .itinerary-card {
-            transition: all 0.3s ease;
-            cursor: pointer;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
-        }
-        .itinerary-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-        }
         .timeline-line {
-            background-color: #08583d;
-            width: 2px;
+            background: linear-gradient(to bottom, #08583d, #08583d 80%, transparent);
+            width: 3px;
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
-            top: 0;
-            bottom: 0;
+            top: 20px;
+            bottom: 20px;
+            z-index: 0;
         }
         .timeline-dot {
             background-color: #ffba00;
             border: 4px solid #08583d;
-            box-shadow: 0 0 0 3px white;
+            box-shadow: 0 0 0 4px #fff;
             z-index: 10;
         }
+        /* Mobile adjustment for timeline */
+        @media (max-width: 768px) {
+            .timeline-line { left: 20px; }
+            .timeline-card { margin-left: 30px !important; width: auto !important; }
+            .timeline-dot { left: 11px; position: absolute; }
+        }
+        /* Video Facade Styles */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            background-color: #000;
+        }
+        .video-facade {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+        .video-container:hover .video-facade {
+            transform: scale(1.02);
+        }
+        .play-button {
+            width: 68px;
+            height: 48px;
+            background-color: rgba(33, 33, 33, 0.8);
+            border-radius: 12px;
+            position: relative;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
+        }
+        .video-container:hover .play-button {
+            background-color: #ff0000;
+        }
+        .play-icon {
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 10px 0 10px 16px;
+            border-color: transparent transparent transparent #ffffff;
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
     </style>
+    <script>
+        function loadVideo(element, videoId) {
+            element.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="absolute top-0 left-0 w-full h-full"></iframe>`;
+        }
+    </script>
 </head>
-<body class="text-gray-800">
+<body>
 
     <!-- Header Section -->
-    <header class="header-bg h-96 flex items-center justify-center">
-        <div class="text-center bg-black bg-opacity-40 p-8 rounded-xl shadow-2xl">
-            <h1 class="text-5xl font-extrabold text-white tracking-tight">장가계 VIP팀 특별 설명회</h1>
-            <p class="mt-3 text-xl font-medium text-yellow-300">11월 25일 출발! 3박 4일, 천하제일의 비경 속으로</p>
+    <header class="header-bg h-[500px] flex items-center justify-center relative">
+        <div class="absolute top-6 left-6 p-2 rounded-lg">
+            <!-- Updated Logo: Transparent Background -->
+            <img src="https://blogger.googleusercontent.com/img/a/AVvXsEitI-Z-hD82keOJ1AqHw-VTZjpw2U-O5UjtV9h3zblyG0wjsVfBWe9X9o0Q_Spctrt7krkd9qXO0xKTmGJLw4gyMZrRqpshKMFttnyx6OcC8-IGz3XLUZpGQOnRqVdol8jz5HuoDLqsEifnVRhcjUJHm13Sz8JrX9aPswMNUwZPvGtJEnQjhc2PiXlo-B8" 
+                 alt="투어메이커 로고" class="h-12 md:h-16 w-auto drop-shadow-md">
+        </div>
+        <div class="text-center px-4 max-w-4xl">
+            <span class="inline-block py-1 px-3 rounded-full bg-[#ffba00] text-[#08583d] text-sm font-bold mb-4 animate-bounce">
+                2026년 얼리버드 특가
+            </span>
+            <h1 class="text-4xl md:text-6xl font-black text-white leading-tight mb-4 drop-shadow-lg">
+                청주출발 장가계<br>
+                <span class="text-yellow-300">VIP 품격 3박 4일</span>
+            </h1>
+            <p class="text-lg md:text-2xl font-medium text-gray-100 drop-shadow-md bg-black bg-opacity-30 p-2 rounded inline-block">
+                사천항공 직항 | 노옵션 + 쇼핑 2회 | 5성급 호텔
+            </p>
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-12 max-w-7xl">
-        
-        <!-- Key Information Section -->
-        <section class="mb-16">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-                <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-[#08583d]">
-                    <p class="text-lg font-semibold text-gray-500">출발일</p>
-                    <p class="text-3xl font-bold mt-1">2025년 11월 25일</p>
+    <main class="container mx-auto px-4 py-12 max-w-6xl">
+
+        <!-- Key Information Grid -->
+        <section class="mb-16 -mt-24 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
+                <div class="bg-white p-6 rounded-xl shadow-xl border-b-4 border-[#08583d]">
+                    <p class="text-sm font-bold text-gray-500 uppercase tracking-wide">출발일</p>
+                    <p class="text-2xl font-extrabold text-[#08583d] mt-1">2026.03.25 (수)</p>
                 </div>
-                <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-[#08583d]">
-                    <p class="text-lg font-semibold text-gray-500">여정</p>
-                    <p class="text-3xl font-bold mt-1">3박 4일 (ZE751/ZE752)</p>
+                <div class="bg-white p-6 rounded-xl shadow-xl border-b-4 border-[#08583d]">
+                    <p class="text-sm font-bold text-gray-500 uppercase tracking-wide">항공편</p>
+                    <p class="text-2xl font-extrabold text-[#08583d] mt-1">사천항공 (3U)</p>
+                    <p class="text-xs text-gray-500">청주 ↔ 장가계 직항</p>
                 </div>
-                <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-[#08583d]">
-                    <p class="text-lg font-semibold text-gray-500">인원</p>
-                    <p class="text-3xl font-bold mt-1">6명 단독행사</p>
+                <div class="bg-white p-6 rounded-xl shadow-xl border-b-4 border-[#08583d]">
+                    <p class="text-sm font-bold text-gray-500 uppercase tracking-wide">상품가</p>
+                    <p class="text-2xl font-extrabold text-[#ffba00] mt-1">1,280,000원</p>
+                    <p class="text-xs text-gray-500">12명 이상 출발 기준</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-xl border-b-4 border-[#08583d]">
+                    <p class="text-sm font-bold text-gray-500 uppercase tracking-wide">호텔</p>
+                    <p class="text-2xl font-extrabold text-[#08583d] mt-1">블루베이 호텔</p>
+                    <p class="text-xs text-gray-500">★★★★★ (5성급 기준)</p>
                 </div>
             </div>
         </section>
 
-        <!-- Upgraded Hotel Section -->
-        <section class="mb-16 bg-white p-8 rounded-xl shadow-2xl border-2 border-yellow-500/50">
-            <h2 class="section-title text-3xl mb-6">숙소 업그레이드 안내: 장가계 피닉스 호텔 (★★★★★)</h2>
-            <div class="flex flex-col lg:flex-row gap-8">
-                <div class="lg:w-1/2">
-                    <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/692626094.jpg?k=fda5db22d7595b885cd50195834f77b4eee7aa4fb2fabc32a8258775ab3359e0&o=" alt="피닉스 호텔 외관 이미지" class="rounded-xl w-full h-auto object-cover shadow-xl">
+        <!-- Video Curation Section (Updated with Facade) -->
+        <section class="mb-20">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-[#08583d]">🎥 미리보는 천하절경</h2>
+                <p class="text-gray-600 mt-2">사진을 클릭하면 생생한 장가계의 영상을 확인하실 수 있습니다.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Video 1: Cinematic Zhangjiajie -->
+                <div>
+                    <!-- 사용자가 요청한 비경 사진 커버 적용 -->
+                    <div class="video-container" onclick="loadVideo(this, 'TXgnYHjsWCU')">
+                        <div class="video-facade" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://media.odynovotours.com/article/78000/zhangjiajie-grand-canyon_76188.jpg');">
+                            <div class="play-button">
+                                <div class="play-icon"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="mt-3 font-bold text-gray-700 text-center">⛰️ 장가계, 신선이 머무는 곳 (영상 보기)</p>
                 </div>
-                <div class="lg:w-1/2">
-                    <h3 class="text-2xl font-bold mb-3">Country Garden Phoenix Hotel Zhangjiajie</h3>
-                    <p class="text-lg mb-4 leading-relaxed">
-                        이번 VIP팀을 위해 **5성급 장가계 피닉스 호텔 (碧桂园凤凰酒店)**로 특별 업그레이드했습니다. 2014년에 오픈한 이 음악 예술 테마 호텔은 총 1041개의 객실을 갖춘 장가계 최고의 리조트 중 하나입니다.
-                    </p>
-                    <ul class="space-y-2 text-gray-600">
-                        <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> **위치:** 후난성 장가계 시 영딩구 반핑촌(永定区 板坪村) 부근</li>
-                        <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> **특징:** 객실이 넉넉하고 발코니 전망이 좋으며, 관광지 접근이 용이합니다.</li>
-                        <li class="flex items-center"><svg class="w-5 h-5 mr-2 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> **부대시설:** 헬스장, KTV, 회의실 등 다양한 편의시설을 이용할 수 있습니다.</li>
+                <!-- Video 2: Avatar & Tianmen -->
+                <div>
+                    <!-- 사용자가 요청한 비경 사진 커버 적용 -->
+                    <div class="video-container" onclick="loadVideo(this, 'NNGfPdXMuDw')">
+                        <div class="video-facade" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://www.discoverzhangjiajie.com/wp-content/uploads/2018/01/Zhangjiajie-National-Forest-Park-Tianzi-Cable-Way-1.jpg');">
+                            <div class="play-button">
+                                <div class="play-icon"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="mt-3 font-bold text-gray-700 text-center">☁️ 하늘을 걷다, 아바타와 천문산 (영상 보기)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Highlights -->
+        <section class="mb-16">
+            <h2 class="section-title text-3xl mb-8">✨ 투어메이커 VIP 특전</h2>
+            <div class="bg-gradient-to-br from-[#08583d] to-[#06422d] rounded-2xl p-8 text-white shadow-2xl">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <span class="text-[#ffba00] mr-2 text-xl">✔</span>
+                            <div>
+                                <strong class="text-lg">NO OPTION (노옵션)</strong>
+                                <p class="text-gray-300 text-sm">현지 추가 지불 부담 없이 편안한 여행 (쇼핑 2회 제외)</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-[#ffba00] mr-2 text-xl">✔</span>
+                            <div>
+                                <strong class="text-lg">전신 마사지 90분 포함</strong>
+                                <p class="text-gray-300 text-sm">여행의 피로를 풀어주는 힐링 코스 (팁 별도)</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-[#ffba00] mr-2 text-xl">✔</span>
+                            <div>
+                                <strong class="text-lg">천문호선쇼 관람</strong>
+                                <p class="text-gray-300 text-sm">천문산을 배경으로 펼쳐지는 환상적인 야외 오페라</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <span class="text-[#ffba00] mr-2 text-xl">✔</span>
+                            <div>
+                                <strong class="text-lg">특식 업그레이드</strong>
+                                <p class="text-gray-300 text-sm">무제한 삼겹살, 버섯전골(누룽지백숙), 궁중요리 등</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-[#ffba00] mr-2 text-xl">✔</span>
+                            <div>
+                                <strong class="text-lg">VIP 리무진 버스</strong>
+                                <p class="text-gray-300 text-sm">24인승 리무진으로 넓고 쾌적한 이동</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-[#ffba00] mr-2 text-xl">✔</span>
+                            <div>
+                                <strong class="text-lg">블루베이 호텔 (5성급)</strong>
+                                <p class="text-gray-300 text-sm">Blue Bay Hotel 또는 동급의 최상급 숙소</p>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
-            <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
-                <img src="https://images.trvl-media.com/lodging/10000000/9240000/9236600/9236576/45f086ef.jpg?impolicy=resizecrop&ra=fill&rh=575&rw=575" alt="호텔 트윈룸" class="rounded-lg shadow-md h-48 w-full object-cover">
-                <img src="https://pix10.agoda.net/property/61253428/1125746480/034a81bdee4d95fc800e6971b14a8aa8.jpeg?ce=2&s=414x232" alt="호텔 조식당" class="rounded-lg shadow-md h-48 w-full object-cover">
-            </div>
         </section>
 
-        <!-- Why Zhangjiajie? Section -->
+        <!-- Itinerary Section -->
         <section class="mb-16">
-            <h2 class="section-title text-3xl mb-6">왜 장가계는 한국인에게 인기 있는가?</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-white p-6 rounded-xl shadow-lg transition-transform transform hover:-translate-y-1">
-                    <h3 class="font-bold text-xl mb-2 text-[#08583d]">① 유네스코 세계유산</h3>
-                    <p class="text-gray-600">중국 최초의 국립삼림공원으로, '아바타' 영화의 영감이 된 절경지로 유명합니다.</p>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-lg transition-transform transform hover:-translate-y-1">
-                    <h3 class="font-bold text-xl mb-2 text-[#08583d]">② 천혜의 자연경관</h3>
-                    <p class="text-gray-600">수직 절벽, 유리다리, 무한히 솟은 봉우리들이 한국인 취향에 잘 맞습니다.</p>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-lg transition-transform transform hover:-translate-y-1">
-                    <h3 class="font-bold text-xl mb-2 text-[#08583d]">③ 합리적 여행비용</h3>
-                    <p class="text-gray-600">유럽/미주 대비 합리적인 비용으로 항공, 호텔, 식사, 관광이 모두 포함됩니다.</p>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-lg transition-transform transform hover:-translate-y-1">
-                    <h3 class="font-bold text-xl mb-2 text-[#08583d]">④ 맞춤형 일정</h3>
-                    <p class="text-gray-600">시니어층 힐링 일정부터 청년층 액티비티까지 다양하게 구성 가능합니다.</p>
-                </div>
-                <div class="bg-white p-6 rounded-xl shadow-lg transition-transform transform hover:-translate-y-1">
-                    <h3 class="font-bold text-xl mb-2 text-[#08583d]">⑤ 편리한 접근성</h3>
-                    <p class="text-gray-600">인천, 청주 등에서 직항 노선이 운용되어 접근성이 양호합니다.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Weather & Precautions Section -->
-        <section class="mb-16 grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <!-- Weather Section -->
-            <div class="bg-white p-8 rounded-xl shadow-2xl">
-                <h2 class="section-title text-2xl mb-4">📅 11월 말 장가계 날씨 및 옷차림</h2>
-                <table class="w-full text-left table-auto">
-                    <tbody>
-                        <tr class="border-b"><td class="py-3 font-semibold text-gray-700 align-top">평균 기온</td><td class="py-3 text-gray-600">최저 3~5℃ / 최고 12~15℃ (서울보다 약간 온화하나 일교차 큼)</td></tr>
-                        <tr class="border-b"><td class="py-3 font-semibold text-gray-700 align-top">체감 날씨</td><td class="py-3 text-gray-600">새벽/밤 기온 급강하 (방한 대비 필수)</td></tr>
-                        <tr class="border-b"><td class="py-3 font-semibold text-gray-700 align-top">추천 복장</td><td class="py-3 text-gray-600">가벼운 패딩/플리스+내피, 긴팔+내복, 편한 워킹화, 모자, 장갑, 넥워머 (천문산 탑승 시 체감 -2℃ 예상)</td></tr>
-                        <tr><td class="py-3 font-semibold text-gray-700 align-top">기타 준비물</td><td class="py-3 text-gray-600">우산 또는 우비, 휴대용 손난로, 약간의 간식(초코바 등)</td></tr>
-                    </tbody>
-                </table>
-            </div>
-            <!-- Precautions Section -->
-            <div class="bg-yellow-50 p-8 rounded-xl shadow-inner border border-yellow-200">
-                <h2 class="section-title text-2xl mb-4">⚠️ 현지 여행 시 주의사항</h2>
-                <table class="w-full text-left table-auto">
-                    <tbody>
-                        <tr class="border-b border-yellow-200"><td class="py-3 font-semibold text-gray-700 align-top">계단/고지대</td><td class="py-3 text-gray-600">수직 절경 중심 (무릎, 허리 유의). 스틱 지참 권장.</td></tr>
-                        <tr class="border-b border-yellow-200"><td class="py-3 font-semibold text-gray-700 align-top">대기 시간</td><td class="py-3 text-gray-600">천문산, 원가계 케이블카/엘리베이터는 최대 1시간 이상 대기 가능.</td></tr>
-                        <tr class="border-b border-yellow-200"><td class="py-3 font-semibold text-gray-700 align-top">공중화장실</td><td class="py-3 text-gray-600">일부 위생 열악. 개인용 티슈 및 손세정제 필수 지참.</td></tr>
-                        <tr class="border-b border-yellow-200"><td class="py-3 font-semibold text-gray-700 align-top">언어 소통</td><td class="py-3 text-gray-600">대부분 한국어 미사용. 가이드 외 개인 거래 시 주의 필요.</td></tr>
-                        <tr><td class="py-3 font-semibold text-gray-700 align-top">식문화 차이</td><td class="py-3 text-gray-600">향신료가 강할 수 있음 (불편 시 가이드에게 요청). 식수는 생수 구입 필수.</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <!-- Key Attractions Spotlight Section -->
-        <section class="mb-16">
-            <h2 class="section-title text-3xl mb-10">🌟 하이라이트 상세 보기</h2>
-
-            <!-- Spotlight 1: 천자산 -->
-            <div class="flex flex-col md:flex-row bg-white rounded-xl shadow-xl overflow-hidden mb-8">
-                <div class="md:w-1/2 grid grid-cols-2">
-                    <img src="https://www.fabionodariphoto.com/wp-content/uploads/2025/05/zhangjiajie-new.jpg" alt="천자산" class="w-full h-64 object-cover">
-                    <img src="https://www.discoverzhangjiajie.com/wp-content/uploads/2018/01/Zhangjiajie-National-Forest-Park-Tianzi-Cable-Way-1.jpg" alt="천자산 케이블카" class="w-full h-64 object-cover">
-                </div>
-                <div class="md:w-1/2 p-6 flex flex-col justify-center">
-                    <h3 class="text-2xl font-bold text-[#08583d] mb-3">천자산 (Tianzi Mountain)</h3>
-                    <p class="text-gray-700 leading-relaxed">장가계 국립삼림공원 내부의 주요 산지로, 수직적인 봉우리들과 운해(雲海)가 어우러진 경관이 특징입니다. 원가계와 케이블카로 연결되어 있으며, 체력적 여유가 비교적 필요합니다.</p>
-                </div>
-            </div>
-
-            <!-- Spotlight 2: 보봉호 (Alternate) -->
-            <div class="flex flex-col md:flex-row-reverse bg-white rounded-xl shadow-xl overflow-hidden mb-8">
-                <div class="md:w-1/2">
-                    <img src="https://media.tacdn.com/media/attractions-splice-spp-674x446/16/8f/17/1b.jpg" alt="보봉호" class="w-full h-64 object-cover">
-                </div>
-                <div class="md:w-1/2 p-6 flex flex-col justify-center">
-                    <h3 class="text-2xl font-bold text-[#08583d] mb-3">보봉호 (Baofeng Lake)</h3>
-                    <p class="text-gray-700 leading-relaxed">장가계 우링위안 지역 내의 호수 관광지로, 맑은 산악호수와 봉우리 숲이 어우러진 신비로운 풍경을 감상하며 유람선(VIP 코스)을 탑승합니다.</p>
-                </div>
-            </div>
-
-            <!-- Spotlight 3: 천문산 -->
-            <div class="flex flex-col md:flex-row bg-white rounded-xl shadow-xl overflow-hidden mb-8">
-                <div class="md:w-1/2 grid grid-cols-2">
-                    <img src="https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/176F7/production/_90619959_hi034331973.jpg" alt="천문산 99굽이 도로" class="w-full h-64 object-cover">
-                    <img src="https://res.klook.com/images/fl_lossy.progressive%2Cq_65/c_fill%2Cw_1500%2Ch_1000/w_80%2Cx_15%2Cy_15%2Cg_south_west%2Cl_Klook_water_br_trans_yhcmh3/activities/ybq37zapmi7ccvum70ul/TianmenMountain%2CCableCarandGalleryRoadinZhangjiajie%2CChina-KlookNewZealand.jpg" alt="천문산 케이블카" class="w-full h-64 object-cover">
-                </div>
-                <div class="md:w-1/2 p-6 flex flex-col justify-center">
-                    <h3 class="text-2xl font-bold text-[#08583d] mb-3">천문산 (Tianmen Mountain)</h3>
-                    <p class="text-gray-700 leading-relaxed">장가계 시 인근에 위치한 산으로, 세계 최장 케이블카, 구불구불한 ‘99번 곡선’ 도로, 아찔한 유리산책길(유리잔도), 하늘로 통하는 문 '천문동'으로 구성된 핵심 명소입니다.</p>
-                </div>
-            </div>
-            
-            <!-- Spotlight 4: 유리다리 (Alternate) -->
-            <div class="flex flex-col md:flex-row-reverse bg-white rounded-xl shadow-xl overflow-hidden mb-8">
-                <div class="md:w-1/2 grid grid-cols-2">
-                    <img src="https://media.odynovotours.com/article/78000/zhangjiajie-grand-canyon_76188.jpg" alt="장가계 대협곡 유리다리" class="w-full h-64 object-cover">
-                    <img src="https://ak-d.tripcdn.com/images/1lo3v12000ei1ghm5D6E2.jpg?proc=source%2Ftrip" alt="유리다리 위에서" class="w-full h-64 object-cover">
-                </div>
-                <div class="md:w-1/2 p-6 flex flex-col justify-center">
-                    <h3 class="text-2xl font-bold text-[#08583d] mb-3">장가계 대협곡 (유리다리)</h3>
-                    <p class="text-gray-700 leading-relaxed mb-2">두 절벽을 잇는 투명 바닥형 다리로, 길이 약 430m, 깊이 약 300m 위에 설치되어 있습니다. 걷는 것만으로도 스릴이 넘치며, ‘인생샷’ 포인트로 매우 인기입니다.</p>
-                    <p class="text-sm text-yellow-700 bg-yellow-100 p-2 rounded"><strong>팁:</strong> 고소공포증이 있거나 다리가 불편한 분은 주의가 필요합니다. 유리판 위를 걷기 때문에 슬립형 신발은 피하는 것이 좋습니다.</p>
-                </div>
-            </div>
-
-            <!-- Spotlight 5: 황룡동굴 -->
-            <div class="flex flex-col md:flex-row bg-white rounded-xl shadow-xl overflow-hidden mb-8">
-                <div class="md:w-1/2 grid grid-cols-2">
-                    <img src="https://res.klook.com/images/fl_lossy.progressive%2Cq_65/c_fill%2Cw_1200%2Ch_630/w_80%2Cx_15%2Cy_15%2Cg_south_west%2Cl_Klook_water_br_trans_yhcmh3/activities/tymvdnak5ozl0fykf9xd/Huanglong%20Cave%20and%20Misty%20Rain%20in%20Zhangjiajie%20Show%20Admission%20Ticket%20-%20Zhangjiajie%2C%20China.jpg" alt="황룡동굴" class="w-full h-64 object-cover">
-                    <img src="https://ak-d.tripcdn.com/images/0353a12000nt8jome6E6C_C_1000_1000_Q50.jpg_.webp" alt="황룡동굴 내부" class="w-full h-64 object-cover">
-                </div>
-                <div class="md:w-1/2 p-6 flex flex-col justify-center">
-                    <h3 class="text-2xl font-bold text-[#08583d] mb-3">황룡동굴 (Huanglong Cave)</h3>
-                    <p class="text-gray-700 leading-relaxed mb-2">우링위안 구역 내에 위치한 거대한 석회암 카르스트 동굴입니다. 여러 층으로 구성되어 있으며, '용궁'이라 불리는 대전당에는 수많은 석주가 밀집해 있어 인상적입니다.</p>
-                    <p class="text-sm text-yellow-700 bg-yellow-100 p-2 rounded"><strong>팁:</strong> 동굴 내부는 습하므로 미끄럼 방지 신발과 간단한 겉옷이 필요합니다. 탐방 시간이 꽤 걸리므로 체력 안배가 중요합니다.</p>
-                </div>
-            </div>
-
-            <!-- Spotlight 6: 천문호선쇼 (Alternate) -->
-            <div class="flex flex-col md:flex-row-reverse bg-white rounded-xl shadow-xl overflow-hidden mb-8">
-                <div class="md:w-1/2 grid grid-cols-2">
-                    <img src="https://res.klook.com/image/upload/w_750%2Ch_469%2Cc_fill%2Cq_85/w_80%2Cx_15%2Cy_15%2Cg_south_west%2Cl_Klook_water_br_trans_yhcmh3/activities/u0ecavslwrlouvgrps12.jpg" alt="천문호선쇼" class="w-full h-64 object-cover">
-                    <img src="https://www.zhangjiajieguide.com/images/tianmen-fox-fairy-show-2.jpg" alt="천문호선쇼 공연" class="w-full h-64 object-cover">
-                </div>
-                <div class="md:w-1/2 p-6 flex flex-col justify-center">
-                    <h3 class="text-2xl font-bold text-[#08583d] mb-3">천문호선쇼 (매력상서쇼 대체)</h3>
-                    <p class="text-gray-700 leading-relaxed mb-2">천문산 기슭의 자연 암벽을 무대로 하는 대형 야외 뮤지컬 쇼입니다. 여우 요정과 나무꾼의 사랑 이야기를 담고 있으며, 자연 풍경을 배경으로 한 조명과 무대효과가 압권입니다.</p>
-                    <p class="text-sm text-yellow-700 bg-yellow-100 p-2 rounded"><strong>팁:</strong> 야외 공연이므로 밤 기온이 내려갑니다. 따뜻한 겉옷을 꼭 챙기시는 것이 좋습니다.</p>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- Itinerary Section (Updated) -->
-        <section class="mb-16">
-            <h2 class="section-title text-3xl mb-10">3박 4일 세부 일정 (ITINERARY)</h2>
+            <h2 class="section-title text-3xl mb-10">📅 3박 4일 상세 일정</h2>
             <div class="relative">
-                <!-- Timeline Line -->
                 <div class="timeline-line hidden md:block"></div>
                 
-                <!-- Day 1 (일정표 문구 수정) -->
-                <div class="mb-8 flex justify-between items-center w-full md:left-side">
-                    <div class="w-full md:w-5/12 p-4 itinerary-card bg-white rounded-xl">
-                        <h3 class="text-2xl font-bold text-[#08583d] mb-2">✈️ 제1일 (11/25, 월)</h3>
-                        <!-- 수정: 1일차 청주국제공항 장가계 사이 표시된내용(항공편, 화살표) 삭제 -->
-                        <p class="text-sm text-gray-500 mb-3">청주 국제공항 / 장가계</p>
-                        <ul class="list-disc list-inside text-gray-700 space-y-1">
-                            <li>장가계 국제공항 도착 후 가이드 미팅</li>
-                            <li>(특전) 대협곡 + 파도치기 (B코스)</li>
-                            <li>석식: 마라샤브 특별식</li>
-                            <li>**숙소:** 피닉스 호텔 (★★★★★) 체크인 및 휴식</li>
-                        </ul>
-                        <div class="mt-3 flex justify-between text-xs font-semibold text-gray-600">
-                            <span>식사: L(컵밥+과일도시락), D(마라샤브)</span>
-                            <span>교통: 리무진 버스</span>
+                <!-- Day 1 -->
+                <div class="mb-12 flex flex-col md:flex-row justify-between items-center w-full">
+                    <div class="order-1 w-full md:w-5/12"></div>
+                    <div class="z-20 flex items-center order-1 bg-[#ffba00] shadow-xl w-8 h-8 rounded-full border-4 border-white md:order-1">
+                        <h1 class="mx-auto font-semibold text-xs text-white">1</h1>
+                    </div>
+                    <div class="order-1 w-full md:w-5/12 px-6 py-4 bg-white rounded-xl shadow-lg border-l-4 border-[#08583d] timeline-card mt-4 md:mt-0">
+                        <h3 class="font-bold text-gray-800 text-xl mb-1 flex justify-between">
+                            <span>1일차: 청주 ✈️ 장가계</span>
+                            <span class="text-sm text-gray-500 font-normal">03/25 (수)</span>
+                        </h3>
+                        <div class="text-sm text-gray-600 mb-2">
+                            <span class="bg-gray-100 px-2 py-0.5 rounded">3U3704</span> 19:30 출발 → 21:50 도착
                         </div>
-                    </div>
-                    <div class="hidden md:block w-1/12 flex justify-center">
-                        <div class="timeline-dot h-4 w-4 rounded-full"></div>
-                    </div>
-                    <div class="hidden md:block w-5/12"></div>
-                </div>
-
-                <!-- Day 2 (식사 수정) -->
-                <div class="mb-8 flex justify-between items-center w-full md:right-side">
-                    <div class="hidden md:block w-5/12"></div>
-                    <div class="hidden md:block w-1/12 flex justify-center">
-                        <div class="timeline-dot h-4 w-4 rounded-full"></div>
-                    </div>
-                    <div class="w-full md:w-5/12 p-4 itinerary-card bg-white rounded-xl">
-                        <h3 class="text-2xl font-bold text-[#08583d] mb-2">⛰️ 제2일 (11/26, 화)</h3>
-                        <p class="text-sm text-gray-500 mb-3">장가계 핵심 절경 탐방</p>
-                        <ul class="list-disc list-inside text-gray-700 space-y-1">
-                            <li>**장가계 보봉호수:** 신비한 수중 궁전 관광 (VIP 코스)</li>
-                            <li>**원가계(천하제일교):** 영화 '아바타' 배경인 거대한 석영암봉 관람</li>
-                            <li>**천자산:** '하늘 문' 봉우리 조망 (케이블카 편도 포함)</li>
-                            <li>**양가계 천자산 자연보호구:** 원가계와 연결된 비경 탐방</li>
-                            <li>(특전) 세계 최고 높이 **338M 백룡 엘리베이터** 탑승</li>
-                            <li>(선택관광) 매력서부쇼 또는 발마사지 (80분/팁별도)</li>
-                            <li>**숙소:** 피닉스 호텔 (★★★★★) 투숙 및 휴식</li>
+                        <ul class="list-disc list-inside text-gray-700 text-sm space-y-1">
+                            <li>가이드 미팅 후 호텔 이동</li>
+                            <li>호텔 투숙 및 휴식</li>
                         </ul>
-                        <div class="mt-3 flex justify-between text-xs font-semibold text-gray-600">
-                            <span>식사: B(호텔식), L(불고기), D(삼겹살 무제한)</span>
-                            <span>교통: 리무진, 케이블카, 엘리베이터</span>
+                        <div class="mt-3 pt-3 border-t border-gray-100 text-xs text-gray-500">
+                            🏨 숙소: 블루베이 호텔 또는 동급<br>
+                            🍴 석식: 기내식
                         </div>
                     </div>
                 </div>
 
-                <!-- Day 3 (식사 수정) -->
-                <div class="mb-8 flex justify-between items-center w-full md:left-side">
-                    <div class="w-full md:w-5/12 p-4 itinerary-card bg-white rounded-xl">
-                        <h3 class="text-2xl font-bold text-[#08583d] mb-2">🌁 제3일 (11/27, 수)</h3>
-                        <p class="text-sm text-gray-500 mb-3">천문산, 장가계 역사/문화 탐방</p>
-                        <ul class="list-disc list-inside text-gray-700 space-y-1">
-                            <li>**천문산:** 세계 최장 길이 **천문산 케이블카** 왕복</li>
-                            <li>**귀곡잔도:** 해발 1400m 절벽을 따라 걷는 아찔한 경험</li>
-                            <li>**유리잔도:** 강심장만 도전 가능한 투명 바닥길 체험</li>
-                            <li>**천문동:** 999개의 계단을 올라 '하늘로 통하는 문' 관람 (에스컬레이터 편도 포함)</li>
-                            <li>**황석채:** 장가계의 전경을 조망하는 트레킹 코스</li>
-                            <li>**숙소:** 피닉스 호텔 (★★★★★) 투숙 및 휴식</li>
+                <!-- Day 2 -->
+                <div class="mb-12 flex flex-col md:flex-row-reverse justify-between items-center w-full">
+                    <div class="order-1 w-full md:w-5/12"></div>
+                    <div class="z-20 flex items-center order-1 bg-[#ffba00] shadow-xl w-8 h-8 rounded-full border-4 border-white md:order-1">
+                        <h1 class="mx-auto font-semibold text-xs text-white">2</h1>
+                    </div>
+                    <div class="order-1 w-full md:w-5/12 px-6 py-4 bg-white rounded-xl shadow-lg border-r-4 border-[#08583d] timeline-card mt-4 md:mt-0 text-left md:text-right">
+                        <h3 class="font-bold text-gray-800 text-xl mb-1 flex justify-between md:flex-row-reverse">
+                            <span>2일차: 원가계 & 천자산</span>
+                            <span class="text-sm text-gray-500 font-normal">03/26 (목)</span>
+                        </h3>
+                        <ul class="list-disc list-inside text-gray-700 text-sm space-y-1 inline-block text-left">
+                            <li><strong>백장협:</strong> 차창 조망</li>
+                            <li><strong>황룡동굴:</strong> 세계 최장의 석회암 동굴</li>
+                            <li><strong>천자산:</strong> 케이블카 등정, 하룡공원, 어필봉</li>
+                            <li><strong>원가계:</strong> 아바타 촬영지 (미혼대, 천하제일교)</li>
+                            <li><strong>백룡엘리베이터:</strong> 하산</li>
+                            <li><span class="text-[#08583d] font-bold">십리화랑</span> (모노레일), 금편계곡</li>
+                            <li><span class="text-[#ffba00] font-bold">전신 마사지 90분</span> (여행 피로 해소)</li>
                         </ul>
-                        <div class="mt-3 flex justify-between text-xs font-semibold text-gray-600">
-                            <span>식사: B(호텔식), L(현지식), D(중국요리)</span>
-                            <span>교통: 리무진, 케이블카, 에스컬레이터</span>
-                        </div>
-                    </div>
-                    <div class="hidden md:block w-1/12 flex justify-center">
-                        <div class="timeline-dot h-4 w-4 rounded-full"></div>
-                    </div>
-                    <div class="hidden md:block w-5/12"></div>
-                </div>
-
-                <!-- Day 4 (식사 수정) -->
-                <div class="mb-8 flex justify-between items-center w-full md:right-side">
-                    <div class="hidden md:block w-5/12"></div>
-                    <div class="hidden md:block w-1/12 flex justify-center">
-                        <div class="timeline-dot h-4 w-4 rounded-full"></div>
-                    </div>
-                    <div class="w-full md:w-5/12 p-4 itinerary-card bg-white rounded-xl">
-                        <h3 class="text-2xl font-bold text-[#08583d] mb-2">👋 제4일 (11/28, 목)</h3>
-                        <p class="text-sm text-gray-500 mb-3">군성사석화 (관광 쇼핑) 장가계/청주국제공항 귀국</p>
-                        <ul class="list-disc list-inside text-gray-700 space-y-1">
-                            <li>**군성사석화:** 오래된 전통 건축물을 감상할 수 있는 관광 쇼핑 거리 산책 (약 10분 소요)</li>
-                            <li>장가계 국제공항으로 이동</li>
-                            <li>출국 수속 및 탑승 (ZE752 16:35)</li>
-                            <li>청주 국제공항 도착</li>
-                            <li>**주의:** 항공 및 현지 사정에 따라 일정 변동 가능</li>
-                        </ul>
-                        <div class="mt-3 flex justify-between text-xs font-semibold text-gray-600">
-                            <span>식사: B(호텔식), L(버섯전골)</span>
-                            <span>교통: 리무진, 항공</span>
+                        <div class="mt-3 pt-3 border-t border-gray-100 text-xs text-gray-500 text-left md:text-right">
+                            🍴 조: 호텔식 / 중: 산채비빔밥 / 석: 궁중요리
                         </div>
                     </div>
                 </div>
 
+                <!-- Day 3 -->
+                <div class="mb-12 flex flex-col md:flex-row justify-between items-center w-full">
+                    <div class="order-1 w-full md:w-5/12"></div>
+                    <div class="z-20 flex items-center order-1 bg-[#ffba00] shadow-xl w-8 h-8 rounded-full border-4 border-white md:order-1">
+                        <h1 class="mx-auto font-semibold text-xs text-white">3</h1>
+                    </div>
+                    <div class="order-1 w-full md:w-5/12 px-6 py-4 bg-white rounded-xl shadow-lg border-l-4 border-[#08583d] timeline-card mt-4 md:mt-0">
+                        <h3 class="font-bold text-gray-800 text-xl mb-1 flex justify-between">
+                            <span>3일차: 천문산 & 보봉호</span>
+                            <span class="text-sm text-gray-500 font-normal">03/27 (금)</span>
+                        </h3>
+                        <ul class="list-disc list-inside text-gray-700 text-sm space-y-1">
+                            <li><strong>보봉호:</strong> 반자연/반인공 호수 유람 (VIP 코스)</li>
+                            <li><strong>천문산 등정:</strong> 케이블카 (35분 탑승)</li>
+                            <li>귀곡잔도, 유리잔도 체험</li>
+                            <li>천문산사 (리프트), 천문동 (에스컬레이터)</li>
+                            <li><span class="text-[#ffba00] font-bold">천문호선쇼:</span> 환상적인 야외 공연 관람</li>
+                        </ul>
+                        <div class="mt-3 pt-3 border-t border-gray-100 text-xs text-gray-500">
+                            🍴 조: 호텔식 / 중: 제육보쌈 / 석: 철판왕삼겹(무제한)
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 4 -->
+                <div class="mb-12 flex flex-col md:flex-row-reverse justify-between items-center w-full">
+                    <div class="order-1 w-full md:w-5/12"></div>
+                    <div class="z-20 flex items-center order-1 bg-[#ffba00] shadow-xl w-8 h-8 rounded-full border-4 border-white md:order-1">
+                        <h1 class="mx-auto font-semibold text-xs text-white">4</h1>
+                    </div>
+                    <div class="order-1 w-full md:w-5/12 px-6 py-4 bg-white rounded-xl shadow-lg border-r-4 border-[#08583d] timeline-card mt-4 md:mt-0 text-left md:text-right">
+                        <h3 class="font-bold text-gray-800 text-xl mb-1 flex justify-between md:flex-row-reverse">
+                            <span>4일차: 문화탐방 ✈️ 귀국</span>
+                            <span class="text-sm text-gray-500 font-normal">03/28 (토)</span>
+                        </h3>
+                        <div class="text-sm text-gray-600 mb-2">
+                            <span class="bg-gray-100 px-2 py-0.5 rounded">3U3703</span> 14:00 출발 → 18:10 도착
+                        </div>
+                        <ul class="list-disc list-inside text-gray-700 text-sm space-y-1 inline-block text-left">
+                            <li><strong>토가풍정원:</strong> 토가족 문화 체험</li>
+                            <li><strong>군성사석화:</strong> 자연의 돌과 모래로 그린 그림</li>
+                            <li>공항 이동 및 출국 수속</li>
+                        </ul>
+                        <div class="mt-3 pt-3 border-t border-gray-100 text-xs text-gray-500 text-left md:text-right">
+                            🍴 조: 호텔식 / 중: 누룽지백숙 / 석: 기내식(간단식)
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
-        
-        <!-- Important Notes Section (쇼핑 수정) -->
-        <section class="mb-12 p-8 bg-gray-100 rounded-xl shadow-inner">
-            <h2 class="section-title text-2xl mb-4">📢 필수 안내 사항</h2>
-            <ul class="list-disc list-inside text-gray-700 space-y-2">
-                <li>**여권 유효기간:** 출발일 기준 6개월 이상 남아 있어야 중국 입국이 가능합니다.</li>
-                <!-- 수정: 쇼핑 4회 -> 2회 (라텍스, 침향, 한약방 등) -->
-                <li>**쇼핑:** 총 2회 (라텍스, 침향, 한약방 등) 쇼핑 일정이 포함되어 있습니다.</li>
-                <li>**옵션 관광:** 일정표의 (선택 관광) 외에 추가 옵션은 현지에서 가이드 설명을 참고하여 결정 가능합니다.</li>
-                <li>**준비물:** 중국은 220V로 한국과 동일하지만, 플러그 모양이 다를 수 있으니 멀티 어댑터를 준비하시면 편리합니다.</li>
+
+        <!-- Included/Excluded & Notes -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            <div class="bg-white p-6 rounded-xl shadow-lg">
+                <h3 class="font-bold text-lg text-[#08583d] mb-4 border-b pb-2">⭕ 포함 사항</h3>
+                <ul class="text-sm text-gray-600 space-y-2">
+                    <li>왕복 항공료 (텍스, 유류할증료 포함)</li>
+                    <li>전 일정 호텔 (2인 1실, 5성급 기준)</li>
+                    <li>전 일정 식사 및 관광지 입장료</li>
+                    <li>24인승 VIP 리무진 버스</li>
+                    <li><strong>기사/가이드 경비 ($50 상당 포함)</strong></li>
+                    <li>1억원 여행자 보험</li>
+                </ul>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-lg">
+                <h3 class="font-bold text-lg text-red-600 mb-4 border-b pb-2">❌ 불포함 사항</h3>
+                <ul class="text-sm text-gray-600 space-y-2">
+                    <li>호텔 싱글 차지 (독실 사용 시)</li>
+                    <li>호텔 매너팁 및 기타 개인 경비</li>
+                    <li>선택 관광 비용 (없음 - 노옵션 상품)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Final Notice -->
+        <section class="bg-gray-100 rounded-xl p-6 mb-12 border border-gray-200">
+            <h3 class="font-bold text-gray-800 mb-2">📢 참고 사항</h3>
+            <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
+                <li>본 상품은 <strong>쇼핑 2회(라텍스 필수 + 1회)</strong>가 포함되어 있으며, 그 외 강제 쇼핑은 없습니다.</li>
+                <li>여권 유효기간은 출발일 기준 6개월 이상 남아있어야 합니다.</li>
+                <li>항공편은 전세기 운영 좌석으로 예약 후 데포짓(1인 20만원) 입금 필수입니다.</li>
+                <li>상기 일정은 항공 및 현지 사정에 의해 다소 변경될 수 있습니다.</li>
             </ul>
         </section>
 
     </main>
 
-    <!-- Footer (담당자 연락처 추가) -->
-    <footer class="bg-[#08583d] text-white py-6">
-        <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
-            <div class="text-center md:text-left mb-4 md:mb-0">
-                <p class="text-lg font-semibold">투어메이커 TOURMAKER</p>
-                <!-- 추가: 담당자 연락처 -->
-                <p class="text-sm font-medium text-yellow-300">담당자: 정두영 010-3841-1361</p>
-                <p class="text-sm">성공적인 장가계 여행을 약속드립니다.</p>
+    <!-- Footer -->
+    <footer class="bg-[#08583d] text-white py-10">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="text-center md:text-left">
+                    <!-- Updated Logo: Transparent Background for Dark Footer -->
+                    <img src="https://blogger.googleusercontent.com/img/a/AVvXsEitI-Z-hD82keOJ1AqHw-VTZjpw2U-O5UjtV9h3zblyG0wjsVfBWe9X9o0Q_Spctrt7krkd9qXO0xKTmGJLw4gyMZrRqpshKMFttnyx6OcC8-IGz3XLUZpGQOnRqVdol8jz5HuoDLqsEifnVRhcjUJHm13Sz8JrX9aPswMNUwZPvGtJEnQjhc2PiXlo-B8" 
+                         alt="투어메이커" class="h-10 mx-auto md:mx-0 mb-4 brightness-200 grayscale">
+                    <p class="font-bold text-lg mb-1">투어메이커 (TOURMAKER)</p>
+                    <p class="text-yellow-300 font-medium mb-4">담당자: 정두영 010-3841-1361</p>
+                    <p class="text-xs text-gray-300 opacity-70">
+                        본 여행 상품은 항공 및 현지 사정에 따라 변경될 수 있습니다.<br>
+                        Copyright © 2025 TOURMAKER. All rights reserved.
+                    </p>
+                </div>
+                <div class="flex gap-4">
+                    <!-- Buttons like Call or Kakao could go here -->
+                    <a href="tel:010-3841-1361" class="bg-[#ffba00] text-[#08583d] font-bold py-3 px-6 rounded-lg hover:bg-yellow-300 transition shadow-lg">
+                        📞 전화 문의하기
+                    </a>
+                </div>
             </div>
-            <!-- 투어메이커 로고 (공유된 URL 사용) -->
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHfgIX70O5k6Anuo0UgALIdaG9jSga9auHu3uyz0uEirylGPAJnjN_qQbvEGMUvPqUQf_g9FMNUHRxlDcUBf4vZ3Mpy4TnA9WxbmzWYK11gt2zuy_Irl4wctNFjcjLyPo0GPXV792o_J7L9guRMuDfeC1gy7USwywjYbECZgzcsHybuGRRAXAnO1eNmP8/s320/logo.png" 
-                 alt="투어메이커 로고" 
-                 class="h-10 w-auto"
-                 onerror="this.onerror=null; this.src='https://placehold.co/100x40/ffffff/08583d?text=TOURMAKER'">
         </div>
     </footer>
 
